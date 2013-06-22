@@ -4,12 +4,19 @@ Easy Author Image Plugin for WordPress
 Hello and welcome to the Git repository for the open source plugin Easy Author Image, a profile enhancement for WordPress installations that gives you a profile picture field in your profile settings.
 
 === Plugin Name ===
+
 Contributors: Lawsonry
+
 Tags: author image, profile, avatar
+
 Requires at least: 3.0.1
+
 Tested up to: 3.4
+
 Stable tag: 1.0
+
 License: GPLv2 or later
+
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 Adds an author image uploader to your profile page. Upload an author image right from your profile page with the click of a button.
