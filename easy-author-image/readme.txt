@@ -1,9 +1,9 @@
-=== Plugin Name ===
-Contributors: Lawsonry
+=== Easy Author Image ===
+Contributors: lawsonry
 Tags: author image, profile, avatar
 Requires at least: 3.0.1
 Tested up to: 3.4
-Stable tag: 1.0
+Stable tag: 1.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -14,6 +14,18 @@ Adds an author image uploader to your profile page. Upload an author image right
 Easy Author Image gives you the option do you exactly that -- easily add an author image to your profile page. Once you install this plugin, you'll have a new option in the Your Profile tab (under Users) called Profile Picture, complete with a media uploader box that allows you to upload your very own author picture. 
 
 Whether you call it an avatar, an author image, or an author picture, Easy Author Image is a "Works Out Of The Box (WOOT-B)" solution to a common problem.
+
+<b>How does it work?</b>
+
+Once you update your profile, your new profile picture will replace every instance of where a Gravatar would normally show up. For every user on your blog (including you), the plugin will first check for an Easy Author Image profile picture and display that. If you or one of your users have not set your profile picture (common on blogs with many users, or with users who prefer to use Gravatar), the plugin defaults to the user's Gravatar. 
+
+<b>Plugin Support</b>
+
+I'm always available to answer questions. You can use the support forum on this plugin (preferred), send me an <a href="http://lawsonry.com/support">email</a>, or comment on the announcement and instructions <a href="http://lawsonry.com/2013/06/easy-author-image-plugin.html">post on my blog</a>.
+
+<b>If you use this plugin and enjoy it, please consider rating it. It only takes a second.</b>
+
+Thank you everyone who has downloaded this so far. 
 
 == Installation ==
 
@@ -69,16 +81,27 @@ This plugin only deals with uploading and retrieving the image. It's up to you t
 
 Correct!
 
+= I have a multi-author blog and some people want to continue using their Gravatars. What should I do? =
+
+Nothing! Easy Author Image automagically defaults back to the Gravatar associated with the user's email address if no profile picture is uploaded.
+
 == Screenshots ==
 
-1. Step 1: Navigate to Your Profile. 
-2. Step 2: The new Profile Picture field on your authors' profile pages. Click on that button that says "Upload new author profile picture." Don't worry -- in addition to uploading a new picture, you can also select an image from a URL or one already uploaded to your Media Gallery.  
-3. Step 3: As you can see, it uses the same Media Uploader as your Media Library does. Find a picture you want to use as your author profile picture. 
-4. Step 4: Click on this button once your image is uploaded/selected.
-5. Step 5: Update your profile!
-6. Step 6: Once your profile has been updated, revel in the fantasticity of your selection.
+1. Step 1 Navigate to Your Profile. 
+2. Step 2 The new Profile Picture field on your authors' profile pages. Click on that button that says "Upload new author profile picture." Don't worry -- in addition to uploading a new picture, you can also select an image from a URL or one already uploaded to your Media Gallery.  
+3. Step 3 As you can see, it uses the same Media Uploader as your Media Library does. Find a picture you want to use as your author profile picture. 
+4. Step 4 Click on this button once your image is uploaded/selected.
+5. Step 5 Update your profile!
+6. Step 6 Once your profile has been updated, revel in the fantasticity of your selection.
 
 == Changelog ==
+
+= 1.2 =
+* Updated depreciated update_usermeta to update_user_meta on line 121.
+* Added the ability for admin to upload/update other users' easy author images. 
+
+= 1.1 =
+* Made Easy Author Image default back to Gravatar if an author chose not to use it. 
 
 = 1.0 =
 * Released.
