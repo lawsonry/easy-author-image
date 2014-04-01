@@ -177,6 +177,11 @@ function get_easy_author_image($avatar, $email, $size, $default='', $alt='') {
 	
 	// FUTURE RELEASE: ALLOW USER TO SET MAX WIDTH HEIGHT VIA DISCUSSION SCREEN
 	
+	// check if $alt is set and escape if necessary 
+	if ( false === $alt)
+              $safe_alt = '';
+	else $safe_alt = esc_attr( $alt );
+	
 	$myavatar = "";
 	
 	// First see if they're a registered user with email set
@@ -197,7 +202,7 @@ function get_easy_author_image($avatar, $email, $size, $default='', $alt='') {
 			
 			// No author_profile_picture set OR user does not belong to blog, so default to Gravatar
 			$gravatarUrl = "http://www.gravatar.com/avatar.php?gravatar_id=" . md5($email->comment_author_email) . "&size=40";
-			$myavatar = "<img src='$gravatarUrl' height='64' width='64' alt='$email->comment_author avatar' />";
+			$myavatar = "<img src='$gravatarUrl' height='64' width='64' alt='$safe_alt' />";
 		}
 	}
 			
