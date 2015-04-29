@@ -3,7 +3,7 @@ Contributors: lawsonry
 Tags: author image, profile, avatar
 Requires at least: 3.0.1
 Tested up to: 3.4
-Stable tag: 1.2
+Stable tag: 1.5.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -21,7 +21,7 @@ Once you update your profile, your new profile picture will replace every instan
 
 <b>Plugin Support</b>
 
-I'm always available to answer questions. You can use the support forum on this plugin (preferred), send me an <a href="http://lawsonry.com/support">email</a>, or comment on the announcement and instructions <a href="http://lawsonry.com/2013/06/easy-author-image-plugin.html">post on my blog</a>.
+I'm always available to answer questions. You can use the support forum on this plugin (preferred), send me an <a href="http://lawsonry.com/support">email</a>, or comment on the announcement and instructions <a href="http://lawsonry.com/2013/06/easy-author-image-plugin">post on my blog</a>.
 
 <b>If you use this plugin and enjoy it, please consider rating it. It only takes a second.</b>
 
@@ -95,6 +95,23 @@ Nothing! Easy Author Image automagically defaults back to the Gravatar associate
 6. Step 6 Once your profile has been updated, revel in the fantasticity of your selection.
 
 == Changelog ==
+
+= 1.5.1 = 
+* Removed alt tag with gravatar email address from gravatar img tag.
+
+= 1.5 =
+* Fixed JQuery function bug from 1.4 update!
+
+= 1.4 = 
+
+ * Big thanks to Chris McBride (Devonto.com) for the following 1.4 updates: Show an empty box when no image uploaded; Display the uploaded image when selected; Display the success message in red; Show a “delete” button to be able to remove the image
+ * Added js strengthening for header redirects
+ * Cleaned up code and added minified version of parts that could use it
+
+
+= 1.3 =
+* Added Vladimir's (Pixel Industry) updated get_easy_author_image() handling of user_id. Previously the plugin was only using the email address. Now users can use a standardized way to fetch the avatar (sans get_author_image_url), and if you deactivate the plugin, you won't see any problems (because there is no dependency on get_author_image_url). Thanks, Vladimir!
+* Removed old dependencies on dated JS files (and updated JS files to match plugin).
 
 = 1.2 =
 * Updated depreciated update_usermeta to update_user_meta on line 121.
