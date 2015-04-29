@@ -6,7 +6,7 @@ jQuery(document).ready(function($){
 		// Google: 'ImageGroup tb_show thickbox':
 		//The optional imageGroup parameter can also be used to pass in an array of images for a single or multiple image slide show gallery.
 		// The problem is that inserting a gallery needs an associated post to work
-		tb_show('Upload an author profile picture! (Easy Author Image Plugin v1.3)', 'media-upload.php?referer=profile&amp;type=image&amp;TB_iframe=true&amp;post_id=0', false);
+		tb_show('Upload an author profile picture! (Easy Author Image Plugin v1.5)', 'media-upload.php?referer=profile&amp;type=image&amp;TB_iframe=true&amp;post_id=0', false);
 		return false;
 	});
 	
