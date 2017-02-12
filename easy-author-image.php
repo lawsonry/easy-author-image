@@ -206,7 +206,10 @@ function get_easy_author_image($avatar, $id_or_email, $size, $default='', $alt='
                 // user exists + has email
                 $avatar_user = get_user_by('email', $email);
                 // check if author_profile_picture is set
+		if(! empty($avatar_user)){
+                // check if author_profile_picture is set
                 $url = get_the_author_meta('author_profile_picture', $avatar_user->ID);
+                }
                
                 if($avatar_user && $url){
                        
