@@ -13,7 +13,7 @@ jQuery(document).ready(function($){
 	window.send_to_editor = function(html) {
 		// html returns a link like this:
 		// <a href="{server_uploaded_image_url}"><img src="{server_uploaded_image_url}" alt="" title="" width="" height"" class="alignzone size-full wp-image-125" /></a>
-		var image_url = $('img',html).attr('src');
+		var image_url = html.attr('src');		
 		//alert(html);
 		$('#author_profile_picture_url').val(image_url); // updates our hidden field that will update our author's meta when the form is saved
 		tb_remove();
