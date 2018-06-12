@@ -77,7 +77,7 @@ function q_replace_thickbox_button_text($translated_text, $text, $domain) {
 function q_add_custom_profile_fields( $user ) {
 	
 	// Display image uploader button
-	$avatar = get_the_author_meta( 'author_profile_picture', $user->ID );
+	$avatar = get_user_meta( $user->ID, 'author_profile_picture', true );
 	?>
 		<h3>Profile Picture</h3>
 		
@@ -133,9 +133,9 @@ add_action( 'edit_user_profile_update', 'q_save_custom_profile_fields' );
 function author_image_circle($user_id=999999, $_size="small") {
 	
 	if($user_id==999999){
-		$avatar = get_the_author_meta('author_profile_picture', get_the_ID());
+		$avatar = get_user_meta(get_the_ID(), 'author_profile_picture', true);
 	} else {
-		$avatar = get_the_author_meta('author_profile_picture', $user_id);
+		$avatar = get_user_meta($user_id, 'author_profile_picture');
 	}
 	$size = ( ($_size == "small" || $_size == "medium" || $_size == "large") ? $_size : "medium");
 	
@@ -147,9 +147,9 @@ function author_image_circle($user_id=999999, $_size="small") {
 
 function get_author_image_url($user_id=999999) {
 	if($user_id==999999){
-		$avatar = get_the_author_meta('author_profile_picture', get_the_ID());
+		$avatar = get_user_meta( get_the_ID(), 'author_profile_picture', true);
 	} else {
-		$avatar = get_the_author_meta('author_profile_picture', $user_id);
+		$avatar = get_user_meta($user_id, 'author_profile_picture', true);
 	}
 	
 	return $avatar;
@@ -160,7 +160,7 @@ function get_author_image_url($user_id=999999) {
  if ( !function_exists('addgravatar') ) {
    function addgravatar( $avatar_defaults ) {
    	$user = wp_get_current_user(); 
-    $myavatar = get_the_author_meta( 'author_profile_picture', $user->ID );
+    $myavatar = get_user_meta( $user->ID, 'author_profile_picture', true );
 
      // Change path to your custom avatar
      $avatar_defaults[$myavatar] = 'My Easy Author Image Profile Picture'; 
@@ -208,7 +208,7 @@ function get_easy_author_image($avatar, $id_or_email, $size, $default='', $alt='
                 // check if author_profile_picture is set
 		if(! empty($avatar_user)){
                 // check if author_profile_picture is set
-                $url = get_the_author_meta('author_profile_picture', $avatar_user->ID);
+                $url = get_user_meta($avatar_user->ID, 'author_profile_picture', true);
                 }
                
                 if($avatar_user && $url){
