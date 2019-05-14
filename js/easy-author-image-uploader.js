@@ -14,12 +14,12 @@ jQuery(document).ready(function($){
 		// html returns a link like this:
 		// <a href="{server_uploaded_image_url}"><img src="{server_uploaded_image_url}" alt="" title="" width="" height"" class="alignzone size-full wp-image-125" /></a>
 		// var image_url = html.attr('src');
-		var imgage_url, srcCheck = $(html).attr('src');
+		var image_url, srcCheck = $(html).attr('src');
 
     		if (srcCheck && typeof srcCheck !== 'undefined') {
-        		imgage_url = srcCheck;
+        		image_url = srcCheck;
     		} else {
-        		imgage_url = $('img', html).attr('src');
+        		image_url = $('img', html).attr('src');
     		}
 		// alert(html);
 		$('#author_profile_picture_url').val(image_url); // updates our hidden field that will update our author's meta when the form is saved
