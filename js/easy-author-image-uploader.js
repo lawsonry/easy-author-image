@@ -13,8 +13,15 @@ jQuery(document).ready(function($){
 	window.send_to_editor = function(html) {
 		// html returns a link like this:
 		// <a href="{server_uploaded_image_url}"><img src="{server_uploaded_image_url}" alt="" title="" width="" height"" class="alignzone size-full wp-image-125" /></a>
-		var image_url = html.attr('src');		
-		//alert(html);
+		// var image_url = html.attr('src');
+		var image_url, srcCheck = $(html).attr('src');
+
+    		if (srcCheck && typeof srcCheck !== 'undefined') {
+        		image_url = srcCheck;
+    		} else {
+        		image_url = $('img', html).attr('src');
+    		}
+		// alert(html);
 		$('#author_profile_picture_url').val(image_url); // updates our hidden field that will update our author's meta when the form is saved
 		tb_remove();
 		$('#author_profile_picture_preview').html('<img src="'+image_url+'" style="max-width:100%; max-height:100%;" />');
