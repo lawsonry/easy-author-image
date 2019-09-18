@@ -3,7 +3,7 @@
 Plugin Name: Easy Author Image
 Plugin URI: http://lawsonry.com/
 Description: Adds an author image uploader to your profile page. Upload an author image right from your profile page with the click of a button.
-Version: 1.6
+Version: 1.7
 Author: Jesse Lawson
 Author URI: http://www.lawsonry.com
 Text Domain: easy-author-image
@@ -16,7 +16,8 @@ Same goes for if you have any suggestions or comments.
 Thanks!
 
 - Jesse Lawson
-- Lawsonry.com (my WordPress blog)
+- https://github.com/jesselawson
+- jesselawson.org (my blog)
 
 */
 
@@ -29,11 +30,11 @@ function q_enqueue_backend_scripts() {
 	// If we are currently viewing the profile field, enqueue our custom js file
 	if ( 'profile' == get_current_screen() -> id || 'user-edit' == get_current_screen() ->id ) {
 		wp_enqueue_script( 'jquery' );
-
+		wp_enqueue_media();
+		wp_enqueue_script( 'media-upload' );
 		wp_enqueue_script( 'thickbox' );
 		wp_enqueue_style( 'thickbox' );
 
-		wp_enqueue_script( 'media-upload' );
 		wp_enqueue_script( 'easy-author-image-uploader' );
 
 	}
@@ -92,10 +93,8 @@ function q_add_custom_profile_fields( $user ) {
 					}
 				?>
 				<td>
-					<input id="author_profile_picture_button" type="button" class="button" value="<?php echo $buttontext; ?>" />
-					<?php if( '' != $avatar ) { ?>
-						<input id="author_profile_picture_remove" type="button" class="button" value="<?php _e( 'Delete profile picture', 'easy-author-image' ); ?>" />
-					<?php } ?>
+					<input id="author_profile_picture_button" type="button" class="button" value="<?php echo $buttontext; ?>" data-popup-title="<?php _e( 'Profile Image', 'easy-author-image' ); ?>" data-popup-button-title="<?php _e( 'Set Profile Image', 'easy-author-image' ); ?>" />
+					<input id="author_profile_picture_remove" type="button" class="button" value="<?php _e( 'Delete profile picture', 'easy-author-image' ); ?>" />
 				</td>
 			</tr>
 			
@@ -103,18 +102,19 @@ function q_add_custom_profile_fields( $user ) {
 				<th><label for="author_profile_picture_preview"><span class="description"><?php _e( 'Preview:', 'easy-author-image' ); ?></span></label></th>
 				<td>
 					<?php if ( '' != $avatar ){ ?>
-					<div id="author_profile_picture_preview" style="min-height: 100px;">
-						<img style="max-width:100%;border:2px solid #CCC" src="<?php echo esc_url( $avatar ); ?>" />
-					</div>					
-					<span class="description"><?php _e( 'You can update the picture from above.', 'easy-author-image' ); ?></span>
-				<?php } else { ?>
-					<div id="author_profile_picture_preview" style="height: 100px; width:100px; line-height:100px; border:2px solid #CCC; text-align:center; font-size:5em;">?</div>					
-					<span class="description"><?php _e( 'This profile does not yet have an image. Click the button above to upload one (or select one from your media gallery).', 'easy-author-image' ); ?></span>
-				<?php } ?>
-					<span id="upload_success" style="color: #FF0000; font-weight: bold; display:block;"></span>
+						<img alt="" src="<?php echo esc_url( $avatar ); ?>" class="author_profile_picture_preview" height="96" width="96" />
+						<p class="description"><?php _e( 'You can update the picture from above.', 'easy-author-image' ); ?></p>
+					<?php } else { ?>
+						<img alt="" src="<?php echo esc_url( plugins_url( 'assets/profile.png', __FILE__ ) ); ?>" data-preview="<?php echo esc_url( plugins_url( 'assets/profile.png', __FILE__ ) ); ?>" class="author_profile_picture_preview" height="96" width="96" />
+						<p class="description"><?php _e( 'This profile does not yet have an image. Click the button above to upload one (or select one from your media gallery).', 'easy-author-image' ); ?></p>
+					<?php } ?>
+					<div id="upload_success"></div>
 				</td>
 			</tr>
 		</table>
+		<style type="text/css">
+			#author_profile_picture_remove{ display: none; }
+		</style>
 	<?php
 	
 }
@@ -150,68 +150,26 @@ function author_image_circle( $user_id=999999, $_size="small" ) {
 	echo $output;
 }
 
-function get_author_image_url($user_id=999999) {
-	if($user_id==999999){
-		$avatar = get_user_meta( get_the_ID(), 'author_profile_picture', true);
+function get_author_image_url( $user_id = 999999 ) {
+	if( $user_id == 999999 ) {
+		$avatar = get_user_meta( get_the_ID(), 'author_profile_picture', true );
 	} else {
-		$avatar = get_user_meta($user_id, 'author_profile_picture', true);
+		$avatar = get_user_meta( $user_id, 'author_profile_picture', true );
 	}
 	
 	return $avatar;
 }
 
 // The meat and potatoes
-function get_easy_author_image($avatar, $id_or_email, $size, $default='', $alt='') {
-    // if this plugin is activated, we'll assume the author wants to use their Easy Author Image instead of Gravatar.
-    // This will replace it.
-    // FUTURE RELEASE: ALLOW USER TO SET MAX WIDTH HEIGHT VIA DISCUSSION SCREEN
-   
-    $myavatar = "";
-   
-    if ( is_numeric($id_or_email) ) {
-            $id = (int) $id_or_email;
-            $user = get_userdata($id);
-            if ( $user )
-                    $email = $user->user_email;
-    } elseif ( is_object($id_or_email) ) {
-
-            if ( !empty($id_or_email->user_id) ) {
-                    $id = (int) $id_or_email->user_id;
-                    $user = get_userdata($id);
-                    if ( $user)
-                            $email = $user->user_email;
-            } elseif ( !empty($id_or_email->comment_author_email) ) {
-                    $email = $id_or_email->comment_author_email;
-            }
-    } else {
-            $email = $id_or_email;
+function get_easy_author_image( $avatar, $id_or_email, $size, $default, $alt ) {
+    
+	$url = get_user_meta( $id_or_email, 'author_profile_picture', true);
+	if( esc_url( $url ) ) {
+		$avatar = "<img alt='{$alt}' src='{$url}' class='avatar avatar-{$size} photo avatar-default' height='{$size}' width='{$size}' />";
+		return $avatar;
+	} else {
+    	return $avatar; 
     }
-   
-    // First see if they're a registered user with email set
-    if(!empty($email)) {
-            // user exists + has email
-            $avatar_user = get_user_by( 'email', $email);
-            // check if author_profile_picture is set
-	if(! empty($avatar_user)){
-            // check if author_profile_picture is set
-            $url = get_user_meta($avatar_user->ID, 'author_profile_picture', true);
-            }
-           
-            if($avatar_user && $url){
-                   
-                    // there is a url so user has an author profile picture
-                            $myavatar = '<img class="avatar avatar-'.$size.' photo" width="64" height="64" src="'.$url.'"/>';              
-           
-            } else {
-                    // No author_profile_picture set OR user does not belong to blog, so default to Gravatar
-                    $gravatarUrl = "https://www.gravatar.com/avatar.php?gravatar_id=" . md5($email) . "&size=40";
-                    $myavatar = "<img src='$gravatarUrl' height='64' width='64' alt=".$email."' />";
-            }
-    }else{
-            $myavatar = "<img alt='' src='{$default}' class='avatar avatar-{$size} photo avatar-default' height='{$size}' width='{$size}' />";
-    }
-
-    return $myavatar;
 }
 
 add_filter( 'get_avatar', 'get_easy_author_image', 10, 5);

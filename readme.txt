@@ -1,9 +1,9 @@
 === Easy Author Image ===
-Contributors: lawsonry
+Contributors: lawsonry, mukesh27
 Tags: author image, profile, avatar
 Requires at least: 3.0.1
-Tested up to: 3.4
-Stable tag: 1.5.1
+Tested up to: 5.3
+Stable tag: 1.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -21,7 +21,7 @@ Once you update your profile, your new profile picture will replace every instan
 
 <b>Plugin Support</b>
 
-I'm always available to answer questions. You can use the support forum on this plugin (preferred), send me an <a href="http://lawsonry.com/support">email</a>, or comment on the announcement and instructions <a href="http://lawsonry.com/2013/06/easy-author-image-plugin">post on my blog</a>.
+Reach out to me via <a href="https://github.com/jesselawson">GitHub</a> or email (jesselawson at protonmail dot com).
 
 <b>If you use this plugin and enjoy it, please consider rating it. It only takes a second.</b>
 
@@ -95,6 +95,12 @@ Nothing! Easy Author Image automagically defaults back to the Gravatar associate
 6. Step 6 Once your profile has been updated, revel in the fantasticity of your selection.
 
 == Changelog ==
+
+= 1.7 =
+* Repackage as new update after JQuery fixes so that everyone's version can update appropriately. 
+
+= 1.6 =
+* Fixed JQuery issue with blank page after uploading author image. Special thanks to Jon at MakingMusicMag.com for helping with this!
 
 = 1.5.1 = 
 * Removed alt tag with gravatar email address from gravatar img tag.
